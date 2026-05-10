@@ -1,0 +1,17 @@
+En muchas revistas de pasatiempos, aparecen esos acertijos. Se trata de pirámides que se rellenan teniendo en cuenta que en cada casilla, el número es la suma de los dos números que tiene debajo. Este nuevo ejemplo ha salido en la página de pasatiempos, este verano, en el diario Sur de Málaga. Como siempre, se puede resolver el acertijo por «la cuenta de la vieja» pero la forma más eficaz sin duda de llegar a la solución es recurrir al álgebra y al uso de las letras.
+
+Nivel: 2º-3º de ESO. 4º de ESO como motivación
+
+Actividad:
+
+Esta pirámide estaba inicialmente rellena de números en cada casilla, números que cumplían la propiedad que cada uno era la suma de los dos números que tenía abajo. Sin embargo como ves, varios de esos números han desaparecido. Tu tarea es pues, encontrar todos los números que faltan.
+
+AYUDA: Con los números que aparecen, no podemos empezar a sumar casillas para obtener el contenido de la superior. Por eso, vamos a suponer que conocemos el contenido x de una de las  casillas de abajo. Subiendo por las casillas, vamos a expresar el máximo número de casillas posibles en función de esta incógnita  x
+
+Escribe la ecuación en función de «x» que obtienes al aplicar la propiedad:
+
+«Cada número es la suma de los dos números de abajo»
+
+Resuélvela y sustituye el valor obtenido para todas las casillas que contienen «x«.
+
+¡¡ Ya sabes seguir….!!!  Sólo tienes que utilizar la misma estrategia en otra parte de la pirámide.
