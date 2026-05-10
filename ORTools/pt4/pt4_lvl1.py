@@ -13,19 +13,18 @@ import numpy as np
 
 class SolutionPrinter(cp_model.CpSolverSolutionCallback):
     """SolutionPrinter"""
-    def __init__(self, n, x):
-        cp_model.CpSolverSolutionCallback.__init__(self)
-        self.__n = n 
-        self.__x = x
+    def __init__(self, matriz_numpy):
+        super().__init__()
+        self.__matriz_numpy = matriz_numpy
         self.__solution_count = 0
 
     def OnSolutionCallback(self):
         self.__solution_count += 1
-        print('Solution #{}:'.format(self.__solution_count))
+        print(f'Solution #{self.__solution_count}:')
 
-        for i in range(self.__n):
-          for j in range(self.__n):
-            print("%3i" % self.Value(self.__x[i,j]), end=" ")
+        for i in range(9):
+          for j in range(9):
+            print(self.Value(self.__matriz_numpy[i,j]), end=" ")
           print()
         print()
 
@@ -61,26 +60,16 @@ for columna in matriz_np_tp:
 
 for fi,fn in ((0,3),(3,6),(6,9)):
     for ci,cn in ((0,3),(3,6),(6,9)):
-        for fila in matriz_np[fi:fn, ci:cn]:
-            model.add_all_different(fila)
-        for columna in matriz_np_tp[fi:fn, ci:cn]:
-            model.add_all_different(columna)
+        model.add_all_different(matriz_np[fi:fn, ci:cn].flatten())
     
 # 4. Clase de CpSolver() que viene con el modulo de cp_model para crear un instancia de resolucion
 solver = cp_model.CpSolver()
 
 # status = solver.Solve(model)
-solution_printer = SolutionPrinter(9, matriz_np)
+solution_printer = SolutionPrinter(matriz_np)
 
 # solution_printer = SimpleSolutionCounter(x)
 status = solver.SearchForAllSolutions(model, solution_printer)
 
 if not (status == cp_model.FEASIBLE or status == cp_model.OPTIMAL):
     print("No solution found!")
-
-print()
-print('NumSolutions: {}'.format(solution_printer.SolutionCount()))
-print('NumConflicts: {}'.format(solver.NumConflicts()))
-print('NumBranches:  {}'.format(solver.NumBranches()))
-print('WallTime:     {}'.format(solver.WallTime()))
-print()

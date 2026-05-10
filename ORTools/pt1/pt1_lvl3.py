@@ -7,7 +7,7 @@ Comencemos con un problema de ejemplo sencillo en el que hay lo siguiente:
 """
 
 from ortools.sat.python import cp_model
-from lvl2_class_printer import VarArraySolutionPrinter
+from pt1.pt1_lvl2_class_printer import VarArraySolutionPrinter
 
 #Usamos la clase CpModel() que viene con el modulo de cp_model
 #para crear una instancia 

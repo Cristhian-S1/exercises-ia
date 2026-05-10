@@ -6,7 +6,7 @@
 """
 
 from ortools.sat.python import cp_model 
-from lvl2_class_printer import VarArraySolutionPrinter
+from pt3.pt3_lvl2_class_printer import VarArraySolutionPrinter
 #1. Declaramos el modelo 
 model = cp_model.CpModel()
 
