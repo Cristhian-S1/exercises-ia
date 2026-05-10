@@ -1,6 +1,25 @@
 from ortools.sat.python import cp_model as cp
 import numpy as np
 
+class Soluciones(cp.CpSolverSolutionCallback):
+    def __init__(self, matriz):
+        super().__init__()
+        self.__matriz = matriz
+        self.__contador_soluciones = 0
+    
+    def OnSolutionCallback(self):
+        self.__contador_soluciones+=1
+
+        for nivel in self.__matriz:
+            print()
+            for numero in nivel:
+                print(self.value(numero), end=' ')
+        print()
+
+    @property
+    def contador_soluciones(self):
+        return self.__contador_soluciones
+
 #1. Declarar el model mediente la clase CpModel()
 modelo = cp.CpModel()
 
@@ -35,8 +54,12 @@ for nivel in range(len(matriz)-1, 0, -1):
     
 #4. Solver
 solver = cp.CpSolver()
-status = solver.solve(modelo)
+soluciones = Soluciones(matriz)
+status = solver.SearchForAllSolutions(modelo, soluciones)
 
+
+"""
+status = solver.solve(modelo)
 if status == cp.OPTIMAL or status == cp.FEASIBLE:
     for fila in matriz:
         print()
@@ -44,14 +67,4 @@ if status == cp.OPTIMAL or status == cp.FEASIBLE:
             print(f"numero = {solver.value(numero)}")
     print()
 else:
-    print("Solucion no encontrada")
-
-
-"""
-for nivel in range(len(piramide)-1, 0, -1):
-    print(piramide[nivel])
-    for col in range(len(piramide[nivel])-1):
-        #piramide[nivel][col], piramide[nivel][col+1], piramide[nivel-1][col]
-        print(piramide[nivel][col], end=' ')
-    print()
-"""
+    print("Solucion no encontrada")"""

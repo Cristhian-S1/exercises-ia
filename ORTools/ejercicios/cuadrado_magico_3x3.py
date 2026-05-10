@@ -1,5 +1,4 @@
-"""
-Ejercicio 1: Cuadrado Mágico 3x3
+""" Ejercicio 1: Cuadrado Mágico 3x3
 Colocar los números del 1 al 9 en una matriz 3x3 tal que:
   - Todas las filas sumen 15
   - Todas las columnas sumen 15
@@ -7,12 +6,10 @@ Colocar los números del 1 al 9 en una matriz 3x3 tal que:
   - No se repitan números
 
 Se muestra una solución y luego se enumeran todas las soluciones únicas
-usando SolutionPrinter (CpSolverSolutionCallback).
-"""
+usando SolutionPrinter (CpSolverSolutionCallback). """
 
 from ortools.sat.python import cp_model
 import numpy as np
-
 
 class SolutionPrinter(cp_model.CpSolverSolutionCallback):
     """Imprime cada solución del cuadrado mágico encontrada."""
@@ -32,7 +29,6 @@ class SolutionPrinter(cp_model.CpSolverSolutionCallback):
 
     def solution_count(self):
         return self.__solution_count
-
 
 def resolver_cuadrado_magico(buscar_todas=False):
     model = cp_model.CpModel()
@@ -67,7 +63,6 @@ def resolver_cuadrado_magico(buscar_todas=False):
 
     print(f"\nStatus: {solver.status_name(status)}")
     print(f"Total de soluciones encontradas: {solution_printer.solution_count()}")
-
 
 if __name__ == "__main__":
     print("=" * 50)
