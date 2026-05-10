@@ -1,26 +1,9 @@
-from ortools.sat.python import cp_model
+import numpy as np
 
-"""value = array[index] donde index es variable"""
-print("\n=== 8. AddElement() ===")
-model = cp_model.CpModel()
+matriz = [[f"({r},{c})" for r in range(4)] for c in range(4)] 
 
-# Array de valores
-valores = [10, 20, 30, 40, 50]
+matriz_np = np.array(matriz)
+matriz_np_tp = matriz_np.transpose()
 
-# Variable índice (debe estar en rango válido)
-index = model.NewIntVar(0, len(valores) - 1, 'index')
-value = model.NewIntVar(0, 100, 'value')
-
-# value = valores[index]
-model.AddElement(index, valores, value)
-
-# Forzar índice para demostración
-model.Add(index == 2)
-
-solver = cp_model.CpSolver()
-status = solver.Solve(model)
-
-if status == cp_model.OPTIMAL:
-    print(f"valores = {valores}")
-    print(f"index = {solver.Value(index)}")
-    print(f"value = valores[index] = {solver.Value(value)}")
+print(matriz_np, "\n")
+print(matriz_np_tp)

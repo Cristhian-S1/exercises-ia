@@ -15,6 +15,8 @@ def ejemplo_cpmodel():
     print("=== 1. CpModel() ===")
     model = cp_model.CpModel()
     print(f"Modelo creado: {type(model)}")
+    # Salida esperada:
+    # Modelo creado: <class 'ortools.sat.python.cp_model.CpModel'>
     return model
 
 
@@ -36,6 +38,10 @@ def ejemplo_newintvar():
     print(f"x: dominio [0, 10]")
     print(f"y: dominio [-5, 5]")
     print(f"z: booleana [0, 1]")
+    # Salida esperada:
+    # x: dominio [0, 10]
+    # y: dominio [-5, 5]
+    # z: booleana [0, 1]
     return model, x, y, z
 
 
@@ -59,6 +65,11 @@ def ejemplo_add():
     print("  x + y <= 10")
     print("  x - y >= 2")
     print("  2*x + 3*y == 15")
+    # Salida esperada:
+    # Restricciones agregadas:
+    #   x + y <= 10
+    #   x - y >= 2
+    #   2*x + 3*y == 15
     return model
 
 
@@ -88,6 +99,8 @@ def ejemplo_solve():
         cp_model.INFEASIBLE: "INFACTIBLE"
     }
     print(f"Estado: {status_dict.get(status, 'DESCONOCIDO')}")
+    # Salida esperada:
+    # Estado: ÓPTIMO
     return model, solver, status
 
 
@@ -113,6 +126,10 @@ def ejemplo_value():
         print(f"x = {solver.Value(x)}")
         print(f"y = {solver.Value(y)}")
         print(f"x + y = {solver.Value(x + y)}")
+        # Salida esperada:
+        # x = 7
+        # y = 0
+        # x + y = 7
     return solver, x, y
 
 
@@ -124,18 +141,13 @@ def ejemplo_addminequality():
     print("\n=== 6. AddMinEquality() ===")
     model = cp_model.CpModel()
     
-    x1 = model.NewIntVar(0, 10, 'x1')
-    x2 = model.NewIntVar(0, 10, 'x2')
-    x3 = model.NewIntVar(0, 10, 'x3')
+    x1 = model.NewIntVar(10, 10, 'x1')
+    x2 = model.NewIntVar(2, 2, 'x2')
+    x3 = model.NewIntVar(7, 7, 'x3')
     y = model.NewIntVar(0, 10, 'y')
     
     # y = min(x1, x2, x3)
     model.AddMinEquality(y, [x1, x2, x3])
-    
-    # Forzar valores para demostración
-    model.Add(x1 == 5)
-    model.Add(x2 == 3)
-    model.Add(x3 == 8)
     
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
@@ -143,6 +155,9 @@ def ejemplo_addminequality():
     if status == cp_model.OPTIMAL:
         print(f"x1={solver.Value(x1)}, x2={solver.Value(x2)}, x3={solver.Value(x3)}")
         print(f"y = min(x1, x2, x3) = {solver.Value(y)}")
+        # Salida esperada:
+        # x1=10, x2=2, x3=7
+        # y = min(x1, x2, x3) = 2
     return model
 
 
@@ -169,6 +184,9 @@ def ejemplo_addabsequality():
     if status == cp_model.OPTIMAL:
         print(f"x = {solver.Value(x)}")
         print(f"y = |x| = {solver.Value(y)}")
+        # Salida esperada:
+        # x = -7
+        # y = |x| = 7
     return model
 
 
@@ -200,6 +218,10 @@ def exemple_addelement():
         print(f"valores = {valores}")
         print(f"index = {solver.Value(index)}")
         print(f"value = valores[index] = {solver.Value(value)}")
+        # Salida esperada:
+        # valores = [10, 20, 30, 40, 50]
+        # index = 2
+        # value = valores[index] = 30
     return model
 
 
@@ -233,6 +255,12 @@ def ejemplo_boolorand():
         print(f"c = {bool(solver.Value(c))}")
         print("AddBoolOr([a,b,c]): al menos uno True ✓")
         print("AddBoolAnd([a,b]): ambos True ✓")
+        # Salida esperada:
+        # a = True
+        # b = True
+        # c = False
+        # AddBoolOr([a,b,c]): al menos uno True ✓
+        # AddBoolAnd([a,b]): ambos True ✓
     return model
 
 
@@ -273,6 +301,12 @@ def ejemplo_addnooverlap():
             print(f"  Tarea {i}: inicio={solver.Value(starts[i])}, "
                   f"duración={duraciones[i]}, fin={solver.Value(ends[i])}")
         print(f"Makespan total: {solver.Value(makespan)}")
+        # Salida esperada:
+        # Tareas programadas (sin superposición):
+        #   Tarea 0: inicio=4, duración=3, fin=7
+        #   Tarea 1: inicio=7, duración=2, fin=9
+        #   Tarea 2: inicio=0, duración=4, fin=4
+        # Makespan total: 9
     return model
 
 
@@ -301,6 +335,10 @@ def ejemplo_newintvarfromdomain():
         print(f"x ∈ {{1, 3, 5, 7}}, valor: {solver.Value(x)}")
         print(f"y ∈ {{0,1,2, 10,11,12}}, valor: {solver.Value(y)}")
         print(f"x + y = {solver.Value(x + y)}")
+        # Salida esperada:
+        # x ∈ {1, 3, 5, 7}, valor: 7
+        # y ∈ {0,1,2, 10,11,12}, valor: 1
+        # x + y = 8
     return model
 
 
@@ -339,6 +377,12 @@ def ejemplo_numpy():
                              for i in range(3)])
         print(solution)
         print(f"Suma total: {solver.Value(sum(x.flatten()))}")
+        # Salida esperada:
+        # Matriz resuelta:
+        # [[9 6 0]
+        #  [0 9 6]
+        #  [6 0 9]]
+        # Suma total: 45
     return model
 
 
