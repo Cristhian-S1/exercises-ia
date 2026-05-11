@@ -68,6 +68,7 @@ def resolver_kenken(buscar_todas=False):
     model.add(x[1][2] - x[1][1] == 1).only_enforce_if(b1.Not())
 
     # Jaula 4: división 2 en (0,3) y (1,3) -> max/min = 2
+    # max((0,3),(1,3)) / min((0,3),(1,3)) = 2   (división)
     b2 = model.new_bool_var("div_2")
     model.add(x[0][3] == 2 * x[1][3]).only_enforce_if(b2)
     model.add(x[1][3] == 2 * x[0][3]).only_enforce_if(b2.Not())

@@ -1,8 +1,8 @@
 import numpy as np
-import builtins
 
-matriz = [[f"({r},{c})" for r in range(4)] for c in range(4)] 
+matriz_m = [[f"{r}_{c}" for c in range(4)] for r in range(4)]
+matriz = np.array(matriz_m)
 
-matriz_np = np.array(matriz)
-print(matriz_np.flatten())
-
+matriz_d = matriz.diagonal()
+lista = [valor for valor in matriz_d.tolist()]
+print(lista)
