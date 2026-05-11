@@ -46,7 +46,7 @@ modelo.add(sum(objetos) >= 3)
 modelo.add(sum(objetos) <= 5)
 
 #Al menos 2 objetos de entre los ultimos 4
-modelo.add( sum( sum(objetos[i] for i in [4,5,6,7]) >= 2))
+modelo.add( sum(objetos[i] for i in [4,5,6,7]) >= 2)
 
 modelo.maximize(sum(valores[i]*objetos for i in range(len(pesos))))
 
